@@ -43,7 +43,7 @@ namespace BubbleGame
                 {
                     if (s is Bomb)
                     {
-                        BombDetonated((Bomb)s);
+                        BombDetonated();
                         return;
                     }
 
@@ -53,11 +53,11 @@ namespace BubbleGame
             }
         }
 
-        private void BombDetonated(Bomb bomb)
+        private void BombDetonated()
         {
-            //When the bomb is detonated,
-            //the player gains points for every shape,
-            //not including the Bomb
+            // When the bomb is detonated,
+            // the player gains points for every shape,
+            // not including the Bomb
             score += shapes.Count - 1;
 
             foreach (var s in shapes)
@@ -73,31 +73,48 @@ namespace BubbleGame
 
         private void Generate(List<Shape> refreshedShapes, int width, int height)
         {
-            //if (refreshedShapes.Count < 12)
-            //{
-            //    while (random.Next(20) < 3)
-            //    {
-            //        refreshedShapes.Add(new Bubble(width, height));
-            //    }
-
-            //    while (random.Next(20) < 1)
-            //    {
-            //        refreshedShapes.Add(new Baloon(width, height));
-            //    }
-            //}
-            //else
-            //{
-            //    if (random.Next(10) < 1 &&
-            //        !refreshedShapes.Any(s => s is Bomb))
-            //    {
-            //        refreshedShapes.Add(new Bomb(width, height));
-            //    }
-            //}
-
-            if (!refreshedShapes.Any(s => s is Bomb))
+            if (refreshedShapes.Count < 12)
             {
-                refreshedShapes.Add(new Bomb(width, height));
+                while (random.Next(20) < 3)
+                {
+                    refreshedShapes.Add(new Bubble(width, height));
+                }
+
+                while (random.Next(20) < 1)
+                {
+                    refreshedShapes.Add(new Baloon(width, height));
+                }
             }
+            else
+            {
+                if (random.Next(10) < 1 &&
+                    !refreshedShapes.Any(s => s is Bomb))
+                {
+                    refreshedShapes.Add(RandomBomb(width, height));
+                }
+            }
+
+            //if (!refreshedShapes.Any(s => s is Bomb))
+            //{
+            //    refreshedShapes.Add(RandomBomb(width, height));
+            //}
+        }
+
+        private Bomb RandomBomb(int width, int height)
+        {
+            Bomb bomb;
+
+            switch (random.Next(2))
+            {
+                case 0:
+                    bomb = new BombVariation(width, height);
+                    break;
+                default:
+                    bomb = new Bomb(width, height);
+                    break;
+            }
+
+            return bomb;
         }
 
         private void Refresh(Graphics graphics, List<Shape> refreshedShapes)

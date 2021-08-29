@@ -9,10 +9,10 @@ namespace BubbleGame
     {
         private double speed;
         private readonly double speedVariation;
-        private readonly int offsetOfX;
-        private readonly int offsetOfY;
-        private readonly int formWidth;
-        private readonly int formHeight;
+        private protected readonly int offsetOfX;
+        private protected readonly int offsetOfY;
+        private protected readonly int formWidth;
+        private protected readonly int formHeight;
 
         public Bomb(int formWidth, int formHeight)
         {
