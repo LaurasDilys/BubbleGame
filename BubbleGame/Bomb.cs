@@ -35,6 +35,10 @@ namespace BubbleGame
 
         public override void DrawDeletedShape(Graphics graphics)
         {
+            Width *= 2;
+            X -= Width / 4;
+            Y -= Width / 4;
+
             graphics.FillEllipse(Brushes.Red, this.X - Width / 2, this.Y - Width / 2, this.Width * 2, this.Width * 2);
             graphics.FillEllipse(Brushes.Yellow, this.X, this.Y, this.Width, this.Width);
         }
